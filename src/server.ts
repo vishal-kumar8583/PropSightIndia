@@ -147,7 +147,7 @@ function serveStatic(req: http.IncomingMessage, res: http.ServerResponse): boole
 // ── Combined server ───────────────────────────────────────────────────────────
 const apiServer = createServer(store, engine);
 
-const PORT = 3000;
+const PORT = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 
 const combinedServer = http.createServer((req, res) => {
   const url = req.url ?? "/";
@@ -165,7 +165,7 @@ const combinedServer = http.createServer((req, res) => {
   }
 });
 
-combinedServer.listen(PORT, "127.0.0.1", () => {
+combinedServer.listen(PORT, "0.0.0.0", () => {
   console.log(`\n🚀  PropSight India`);
   console.log(`   Landing:   http://localhost:${PORT}`);
   console.log(`   Dashboard: http://localhost:${PORT}/dashboard`);
