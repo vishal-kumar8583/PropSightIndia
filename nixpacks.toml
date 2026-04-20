@@ -1,8 +1,8 @@
 [phases.install]
-cmds = ["npm install --include=dev"]
+cmds = ["npm install --omit=dev"]
 
 [phases.build]
-cmds = ["npm run build"]
+cmds = ["echo 'Skipping build - using pre-compiled dist'"]
 
 [start]
 cmd = "npm start"

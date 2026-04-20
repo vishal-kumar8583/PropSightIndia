@@ -4,7 +4,7 @@
   "description": "Geospatial analytics engine for predictive urban growth modeling",
   "type": "module",
   "scripts": {
-    "build": "./node_modules/.bin/tsc",
+    "build": "tsc",
     "start": "node dist/server.js",
     "test": "vitest --run",
     "test:watch": "vitest",
