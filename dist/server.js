@@ -130,7 +130,7 @@ function serveStatic(req, res) {
 }
 // ── Combined server ───────────────────────────────────────────────────────────
 const apiServer = createServer(store, engine);
-const PORT = process.env.PORT ? parseInt(process.env.PORT) : 3000;
+const PORT = process.env.PORT ? parseInt(process.env.PORT) : 8080;
 const combinedServer = http.createServer((req, res) => {
     const url = req.url ?? "/";
     // API routes
