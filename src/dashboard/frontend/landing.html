@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>PropSight India — Predictive Urban Growth Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --blue:#1d4ed8;--blue-dark:#1e3a8a;--blue-light:#3b82f6;
+      --cyan:#06b6d4;--green:#10b981;--amber:#f59e0b;--red:#ef4444;
+      --text:#0f172a;--muted:#475569;--border:#e2e8f0;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',system-ui,sans-serif;background:#fff;color:var(--text);overflow-x:hidden}
+
+    /* ── NAV ── */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(29,78,216,0.08);transition:all .3s}
+    .nav-brand{display:flex;align-items:center;gap:10px;font-size:1.1rem;font-weight:800;color:var(--text);text-decoration:none;letter-spacing:-0.02em}
+    .nav-logo{width:36px;height:36px;background:linear-gradient(135deg,var(--blue),var(--cyan));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;box-shadow:0 4px 12px rgba(29,78,216,0.3)}
+    .nav-brand span{color:var(--blue)}
+    .nav-links{display:flex;align-items:center;gap:32px}
+    .nav-links a{font-size:0.85rem;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s}
+    .nav-links a:hover{color:var(--blue)}
+    .nav-cta{padding:8px 20px;background:var(--blue);color:#fff;border-radius:8px;font-size:0.85rem;font-weight:700;text-decoration:none;transition:all .2s;box-shadow:0 2px 8px rgba(29,78,216,0.3)}
+    .nav-cta:hover{background:var(--blue-dark);box-shadow:0 4px 16px rgba(29,78,216,0.4);transform:translateY(-1px)}
+
+    /* ── HERO ── */
+    .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 5% 60px;position:relative;overflow:hidden;background:linear-gradient(160deg,#f0f7ff 0%,#e8f0fe 40%,#f0f4ff 100%)}
+    .hero-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+    .hero-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.35;animation:float-orb 8s ease-in-out infinite}
+    .orb1{width:600px;height:600px;background:radial-gradient(circle,#3b82f6,#1d4ed8);top:-200px;right:-100px;animation-delay:0s}
+    .orb2{width:400px;height:400px;background:radial-gradient(circle,#06b6d4,#0891b2);bottom:-100px;left:-100px;animation-delay:-3s}
+    .orb3{width:300px;height:300px;background:radial-gradient(circle,#8b5cf6,#7c3aed);top:40%;left:10%;animation-delay:-5s}
+    @keyframes float-orb{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(20px,-30px) scale(1.05)}66%{transform:translate(-15px,20px) scale(0.95)}}
+    .hero-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:rgba(29,78,216,0.08);border:1px solid rgba(29,78,216,0.2);border-radius:20px;font-size:0.75rem;font-weight:600;color:var(--blue);margin-bottom:24px;animation:fadeUp .6s ease-out .1s both}
+    .hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse-dot 2s ease-in-out infinite}
+    @keyframes pulse-dot{0%,100%{box-shadow:0 0 0 0 rgba(16,185,129,0.4)}50%{box-shadow:0 0 0 6px rgba(16,185,129,0)}}
+    .hero h1{font-size:clamp(2.4rem,5vw,4rem);font-weight:900;line-height:1.1;letter-spacing:-0.03em;color:var(--text);margin-bottom:20px;animation:fadeUp .6s ease-out .2s both}
+    .hero h1 .gradient-text{background:linear-gradient(135deg,var(--blue),var(--cyan),var(--blue-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero-sub{font-size:1.1rem;color:var(--muted);max-width:580px;line-height:1.7;margin-bottom:36px;animation:fadeUp .6s ease-out .3s both}
+    .hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;animation:fadeUp .6s ease-out .4s both}
+    .btn-primary{padding:14px 28px;background:linear-gradient(135deg,var(--blue),var(--blue-light));color:#fff;border-radius:10px;font-size:0.95rem;font-weight:700;text-decoration:none;transition:all .25s;box-shadow:0 4px 20px rgba(29,78,216,0.35);display:flex;align-items:center;gap:8px}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(29,78,216,0.45)}
+    .btn-secondary{padding:14px 28px;background:#fff;color:var(--text);border-radius:10px;font-size:0.95rem;font-weight:600;text-decoration:none;transition:all .25s;border:1.5px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,0.06);display:flex;align-items:center;gap:8px}
+    .btn-secondary:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-2px);box-shadow:0 4px 16px rgba(29,78,216,0.12)}
+    .hero-stats{display:flex;gap:40px;justify-content:center;margin-top:56px;animation:fadeUp .6s ease-out .5s both}
+    .hs-item{text-align:center}
+    .hs-num{font-size:2rem;font-weight:900;color:var(--text);letter-spacing:-0.03em}
+    .hs-num span{color:var(--blue)}
+    .hs-label{font-size:0.75rem;color:var(--muted);font-weight:500;margin-top:2px}
+    .hero-divider{width:1px;height:40px;background:var(--border);align-self:center}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+    /* ── DASHBOARD PREVIEW ── */
+    .preview-section{padding:80px 5%;background:#fff;position:relative}
+    .preview-section::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--border),transparent)}
+    .preview-wrap{max-width:1100px;margin:0 auto}
+    .section-label{font-size:0.72rem;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;text-align:center}
+    .section-title{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:900;letter-spacing:-0.02em;text-align:center;margin-bottom:14px;color:var(--text)}
+    .section-sub{font-size:1rem;color:var(--muted);text-align:center;max-width:520px;margin:0 auto 48px;line-height:1.7}
+    .preview-card{background:linear-gradient(135deg,#f0f7ff,#e8f0fe);border:1px solid rgba(29,78,216,0.12);border-radius:20px;padding:8px;box-shadow:0 20px 60px rgba(29,78,216,0.12);overflow:hidden;position:relative}
+    .preview-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(29,78,216,0.03),transparent);pointer-events:none;z-index:1}
+    .preview-inner{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+    .preview-topbar{background:linear-gradient(135deg,#1e3a8a,#1d4ed8);height:44px;display:flex;align-items:center;padding:0 16px;gap:12px}
+    .preview-dots{display:flex;gap:6px}
+    .pd{width:10px;height:10px;border-radius:50%}
+    .pd1{background:#ef4444}.pd2{background:#f59e0b}.pd3{background:#10b981}
+    .preview-title{font-size:0.75rem;font-weight:600;color:rgba(255,255,255,0.7);margin-left:8px}
+    .preview-body{display:grid;grid-template-columns:220px 1fr 280px;height:340px}
+    .preview-left{background:#f8faff;border-right:1px solid #e2e8f0;padding:12px;display:flex;flex-direction:column;gap:6px}
+    .preview-state-item{background:#fff;border:1px solid #e2e8f0;border-radius:7px;padding:7px 9px;display:flex;align-items:center;justify-content:space-between}
+    .psi-name{font-size:0.7rem;font-weight:600;color:#0f172a}
+    .psi-gvs{font-size:0.8rem;font-weight:800}
+    .psi-bar{height:3px;background:#e2e8f0;border-radius:2px;margin-top:4px;overflow:hidden}
+    .psi-fill{height:100%;border-radius:2px}
+    .preview-map{background:linear-gradient(135deg,#dbeafe,#e0f2fe,#d1fae5);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+    .map-placeholder{position:relative;width:100%;height:100%}
+    .map-india{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:5rem;opacity:0.15}
+    .map-dot{position:absolute;border-radius:50%;animation:map-pulse 2s ease-in-out infinite}
+    @keyframes map-pulse{0%,100%{transform:scale(1);opacity:0.9}50%{transform:scale(1.3);opacity:0.6}}
+    .preview-right{background:#f8faff;border-left:1px solid #e2e8f0;padding:12px;display:flex;flex-direction:column;gap:8px}
+    .preview-zone-hero{background:linear-gradient(135deg,#1e3a8a,#1d4ed8);border-radius:8px;padding:10px;color:#fff}
+    .pzh-name{font-size:0.75rem;font-weight:700}
+    .pzh-gvs{font-size:1.4rem;font-weight:900;margin:2px 0}
+    .pzh-sub{font-size:0.6rem;opacity:0.6}
+    .preview-metric{background:#fff;border:1px solid #e2e8f0;border-radius:6px;padding:6px 8px}
+    .pm-label{font-size:0.6rem;color:#64748b;text-transform:uppercase;letter-spacing:.05em}
+    .pm-value{font-size:0.85rem;font-weight:700;color:#0f172a}
+
+    /* ── FEATURES ── */
+    .features-section{padding:80px 5%;background:linear-gradient(160deg,#f8faff,#f0f4ff)}
+    .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:1100px;margin:0 auto}
+    .feature-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:28px;transition:all .25s;position:relative;overflow:hidden}
+    .feature-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--fc-gradient,linear-gradient(to right,var(--blue),var(--cyan)));opacity:0;transition:opacity .25s}
+    .feature-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(29,78,216,0.1);border-color:rgba(29,78,216,0.2)}
+    .feature-card:hover::before{opacity:1}
+    .fc-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:16px}
+    .fc-title{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:8px}
+    .fc-desc{font-size:0.85rem;color:var(--muted);line-height:1.6}
+
+    /* ── HOW IT WORKS ── */
+    .how-section{padding:80px 5%;background:#fff}
+    .how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0;max-width:1000px;margin:0 auto;position:relative}
+    .how-grid::before{content:'';position:absolute;top:32px;left:10%;right:10%;height:2px;background:linear-gradient(to right,var(--blue),var(--cyan),var(--green));opacity:0.3;z-index:0}
+    .how-step{text-align:center;padding:0 20px;position:relative;z-index:1}
+    .hs-circle{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--blue-light));color:#fff;font-size:1.3rem;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 4px 16px rgba(29,78,216,0.3);font-weight:800}
+    .hs-step-title{font-size:0.95rem;font-weight:700;color:var(--text);margin-bottom:8px}
+    .hs-step-desc{font-size:0.82rem;color:var(--muted);line-height:1.6}
+
+    /* ── STATS BAND ── */
+    .stats-band{padding:60px 5%;background:linear-gradient(135deg,#1e3a8a,#1d4ed8,#2563eb);position:relative;overflow:hidden}
+    .stats-band::before{content:'';position:absolute;top:-50%;right:-10%;width:400px;height:400px;background:rgba(255,255,255,0.04);border-radius:50%}
+    .stats-band::after{content:'';position:absolute;bottom:-30%;left:-5%;width:300px;height:300px;background:rgba(255,255,255,0.03);border-radius:50%}
+    .stats-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;position:relative;z-index:1}
+    .stat-item{text-align:center;padding:20px}
+    .stat-num{font-size:2.4rem;font-weight:900;color:#fff;letter-spacing:-0.03em;line-height:1}
+    .stat-num span{color:#93c5fd}
+    .stat-label{font-size:0.78rem;color:rgba(255,255,255,0.6);margin-top:6px;font-weight:500}
+
+    /* ── CITIES ── */
+    .cities-section{padding:80px 5%;background:linear-gradient(160deg,#f0f4ff,#f8faff)}
+    .cities-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;max-width:900px;margin:0 auto}
+    .city-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px 16px;text-align:center;transition:all .2s;cursor:pointer;text-decoration:none;display:block}
+    .city-card:hover{border-color:var(--blue);box-shadow:0 6px 24px rgba(29,78,216,0.1);transform:translateY(-3px)}
+    .city-icon{font-size:2rem;margin-bottom:8px}
+    .city-name{font-size:0.85rem;font-weight:700;color:var(--text);margin-bottom:4px}
+    .city-zones{font-size:0.72rem;color:var(--muted)}
+    .city-gvs{font-size:1rem;font-weight:800;margin-top:6px}
+
+    /* ── CTA ── */
+    .cta-section{padding:100px 5%;background:#fff;text-align:center}
+    .cta-card{max-width:700px;margin:0 auto;background:linear-gradient(135deg,#1e3a8a,#1d4ed8,#2563eb);border-radius:24px;padding:60px 40px;position:relative;overflow:hidden;box-shadow:0 20px 60px rgba(29,78,216,0.3)}
+    .cta-card::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:rgba(255,255,255,0.06);border-radius:50%}
+    .cta-card::after{content:'';position:absolute;bottom:-40px;left:-40px;width:150px;height:150px;background:rgba(255,255,255,0.04);border-radius:50%}
+    .cta-title{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:900;color:#fff;letter-spacing:-0.02em;margin-bottom:14px;position:relative;z-index:1}
+    .cta-sub{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:32px;line-height:1.6;position:relative;z-index:1}
+    .cta-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;background:#fff;color:var(--blue);border-radius:10px;font-size:1rem;font-weight:800;text-decoration:none;transition:all .25s;box-shadow:0 4px 16px rgba(0,0,0,0.15);position:relative;z-index:1}
+    .cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.2)}
+
+    /* ── FOOTER ── */
+    footer{background:#0f172a;color:rgba(255,255,255,0.5);padding:32px 5%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+    .footer-brand{display:flex;align-items:center;gap:8px;font-size:0.9rem;font-weight:700;color:#fff}
+    .footer-links{display:flex;gap:20px}
+    .footer-links a{font-size:0.8rem;color:rgba(255,255,255,0.4);text-decoration:none;transition:color .2s}
+    .footer-links a:hover{color:#fff}
+    .footer-copy{font-size:0.75rem}
+
+    @keyframes modalIn{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+    /* ── SCROLL ANIMATIONS ── */
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease-out,transform .6s ease-out}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    .reveal-delay-1{transition-delay:.1s}
+    .reveal-delay-2{transition-delay:.2s}
+    .reveal-delay-3{transition-delay:.3s}
+    .reveal-delay-4{transition-delay:.4s}
+
+    /* ── PAGE TRANSITION OVERLAY ── */
+    #page-transition{
+      position:fixed;inset:0;z-index:9999;
+      pointer-events:none;
+      background:linear-gradient(135deg,#1e3a8a,#1d4ed8,#2563eb);
+      opacity:0;
+      transform:translateY(100%);
+      transition:none;
+    }
+    #page-transition.slide-up{
+      pointer-events:all;
+      animation:page-exit .55s cubic-bezier(.76,0,.24,1) forwards;
+    }
+    @keyframes page-exit{
+      0%  {opacity:0;transform:translateY(100%)}
+      15% {opacity:1;transform:translateY(100%)}
+      100%{opacity:1;transform:translateY(0%)}
+    }
+    #page-transition .pt-logo{
+      position:absolute;top:50%;left:50%;
+      transform:translate(-50%,-50%);
+      display:flex;flex-direction:column;align-items:center;gap:14px;
+      opacity:0;animation:pt-logo-in .3s ease-out .25s forwards;
+    }
+    @keyframes pt-logo-in{from{opacity:0;transform:translate(-50%,-50%) scale(.9)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+    .pt-icon{width:56px;height:56px;background:rgba(255,255,255,.15);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(8px)}
+    .pt-text{font-size:1rem;font-weight:700;color:rgba(255,255,255,.9);letter-spacing:-.01em}
+    .pt-bar{width:120px;height:3px;background:rgba(255,255,255,.15);border-radius:2px;overflow:hidden;margin-top:4px}
+    .pt-bar-fill{height:100%;background:#fff;border-radius:2px;animation:pt-bar-grow .5s ease-out .3s both}
+    @keyframes pt-bar-grow{from{width:0}to{width:100%}}
+  </style>
+</head>
+<body>
+
+<!-- PAGE TRANSITION OVERLAY -->
+<div id="page-transition">
+  <div class="pt-logo">
+    <div class="pt-icon">🏙️</div>
+    <div class="pt-text">PropSight India</div>
+    <div class="pt-bar"><div class="pt-bar-fill"></div></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="/" class="nav-brand">
+    <div class="nav-logo">🏙️</div>
+    PropSight <span>India</span>
+  </a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#how">How it works</a>
+    <a href="#cities">Cities</a>
+  </div>
+  <a href="/dashboard" class="nav-cta">Open Dashboard →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-orb orb1"></div>
+    <div class="hero-orb orb2"></div>
+    <div class="hero-orb orb3"></div>
+  </div>
+  <div class="hero-badge"><span class="hero-badge-dot"></span>AI-Powered Real Estate Intelligence</div>
+  <h1>Predict India's Next<br><span class="gradient-text">Real Estate Hotspots</span></h1>
+  <p class="hero-sub">PropSight India combines municipal infrastructure data with market signals to compute Growth Velocity Scores for every micro-market — before the crowd arrives.</p>
+  <div class="hero-actions">
+    <a href="/dashboard" class="btn-primary">🗺️ Explore Dashboard</a>
+    <a href="#features" class="btn-secondary">Learn More ↓</a>
+  </div>
+  <div class="hero-stats">
+    <div class="hs-item"><div class="hs-num">9<span>+</span></div><div class="hs-label">States Covered</div></div>
+    <div class="hero-divider"></div>
+    <div class="hs-item"><div class="hs-num">28<span>+</span></div><div class="hs-label">Micro-Markets</div></div>
+    <div class="hero-divider"></div>
+    <div class="hs-item"><div class="hs-num">32<span></span></div><div class="hs-label">Data Signals</div></div>
+    <div class="hero-divider"></div>
+    <div class="hs-item"><div class="hs-num">60<span>mo</span></div><div class="hs-label">Projection Horizon</div></div>
+  </div>
+</section>
+
+<!-- DASHBOARD PREVIEW -->
+<section class="preview-section">
+  <div class="preview-wrap">
+    <div class="section-label reveal">Live Dashboard</div>
+    <h2 class="section-title reveal reveal-delay-1">Everything in one view</h2>
+    <p class="section-sub reveal reveal-delay-2">State-wise choropleth map, zone rankings, signal breakdowns, and 60-month trajectory charts — all in real time.</p>
+    <div class="preview-card reveal reveal-delay-3">
+      <div class="preview-inner">
+        <div class="preview-topbar">
+          <div class="preview-dots"><div class="pd pd1"></div><div class="pd pd2"></div><div class="pd pd3"></div></div>
+          <div class="preview-title">PropSight India — Urban Growth Intelligence</div>
+        </div>
+        <div class="preview-body">
+          <div class="preview-left">
+            <div style="font-size:0.62rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">States by GVS</div>
+            <div class="preview-state-item"><div><div class="psi-name">Gujarat</div><div class="psi-bar"><div class="psi-fill" style="width:92%;background:linear-gradient(to right,#ef444488,#ef4444)"></div></div></div><div class="psi-gvs" style="color:#ef4444">92</div></div>
+            <div class="preview-state-item"><div><div class="psi-name">Haryana</div><div class="psi-bar"><div class="psi-fill" style="width:86%;background:linear-gradient(to right,#f59e0b88,#f59e0b)"></div></div></div><div class="psi-gvs" style="color:#f59e0b">86</div></div>
+            <div class="preview-state-item"><div><div class="psi-name">Karnataka</div><div class="psi-bar"><div class="psi-fill" style="width:80%;background:linear-gradient(to right,#10b98188,#10b981)"></div></div></div><div class="psi-gvs" style="color:#10b981">80</div></div>
+            <div class="preview-state-item"><div><div class="psi-name">Telangana</div><div class="psi-bar"><div class="psi-fill" style="width:73%;background:linear-gradient(to right,#06b6d488,#06b6d4)"></div></div></div><div class="psi-gvs" style="color:#06b6d4">73</div></div>
+            <div class="preview-state-item"><div><div class="psi-name">Maharashtra</div><div class="psi-bar"><div class="psi-fill" style="width:69%;background:linear-gradient(to right,#3b82f688,#3b82f6)"></div></div></div><div class="psi-gvs" style="color:#3b82f6">69</div></div>
+          </div>
+          <div class="preview-map">
+            <div class="map-placeholder">
+              <div class="map-india">🗺️</div>
+              <div class="map-dot" style="width:18px;height:18px;background:#ef4444;top:35%;left:30%;animation-delay:0s;box-shadow:0 0 12px #ef4444"></div>
+              <div class="map-dot" style="width:14px;height:14px;background:#f59e0b;top:25%;left:55%;animation-delay:.4s;box-shadow:0 0 10px #f59e0b"></div>
+              <div class="map-dot" style="width:16px;height:16px;background:#10b981;top:65%;left:45%;animation-delay:.8s;box-shadow:0 0 10px #10b981"></div>
+              <div class="map-dot" style="width:12px;height:12px;background:#06b6d4;top:55%;left:55%;animation-delay:1.2s;box-shadow:0 0 8px #06b6d4"></div>
+              <div class="map-dot" style="width:15px;height:15px;background:#3b82f6;top:45%;left:35%;animation-delay:1.6s;box-shadow:0 0 10px #3b82f6"></div>
+              <div style="position:absolute;bottom:12px;left:12px;background:rgba(255,255,255,0.9);border-radius:8px;padding:6px 10px;font-size:0.65rem;font-weight:600;color:#0f172a;backdrop-filter:blur(8px)">Click any state to explore →</div>
+            </div>
+          </div>
+          <div class="preview-right">
+            <div class="preview-zone-hero">
+              <div class="pzh-name">📍 GIFT City, Gujarat</div>
+              <div class="pzh-gvs">92</div>
+              <div class="pzh-sub">Growth Velocity Score · 🔥 Hot</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px">
+              <div class="preview-metric"><div class="pm-label">Price Velocity</div><div class="pm-value" style="color:#10b981">+2.3%/mo</div></div>
+              <div class="preview-metric"><div class="pm-label">Rental Yield</div><div class="pm-value" style="color:#10b981">+0.9%</div></div>
+              <div class="preview-metric"><div class="pm-label">Absorption</div><div class="pm-value">78%</div></div>
+              <div class="preview-metric"><div class="pm-label">Horizon</div><div class="pm-value">24 mo</div></div>
+            </div>
+            <div style="background:#fff;border:1px solid #e2e8f0;border-radius:6px;padding:7px 8px">
+              <div style="font-size:0.6rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px">Infrastructure</div>
+              <div style="font-size:0.68rem;color:#0f172a;margin-bottom:3px">🏦 IFSC Banking Hub</div>
+              <div style="font-size:0.68rem;color:#0f172a;margin-bottom:3px">🚇 GIFT Metro Connectivity</div>
+              <div style="font-size:0.68rem;color:#0f172a">💡 Smart City Phase 2</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-section" id="features">
+  <div class="section-label reveal">Why PropSight</div>
+  <h2 class="section-title reveal reveal-delay-1">Built for serious investors</h2>
+  <p class="section-sub reveal reveal-delay-2">Every feature is designed to give you a data edge before the market moves.</p>
+  <div class="features-grid">
+    <div class="feature-card reveal" style="--fc-gradient:linear-gradient(to right,#1d4ed8,#06b6d4)">
+      <div class="fc-icon" style="background:linear-gradient(135deg,#dbeafe,#e0f2fe)">🗺️</div>
+      <div class="fc-title">State-wise Choropleth Map</div>
+      <div class="fc-desc">Interactive India map with every state colored by its Growth Velocity Score. Click any state to drill into micro-markets with animated zone markers.</div>
+    </div>
+    <div class="feature-card reveal reveal-delay-1" style="--fc-gradient:linear-gradient(to right,#7c3aed,#1d4ed8)">
+      <div class="fc-icon" style="background:linear-gradient(135deg,#ede9fe,#dbeafe)">📊</div>
+      <div class="fc-title">Growth Velocity Score</div>
+      <div class="fc-desc">A 0–100 composite score built from 7 weighted signals — infrastructure tenders, listing density, pricing velocity, rental absorption, and more.</div>
+    </div>
+    <div class="feature-card reveal reveal-delay-2" style="--fc-gradient:linear-gradient(to right,#059669,#06b6d4)">
+      <div class="fc-icon" style="background:linear-gradient(135deg,#d1fae5,#e0f2fe)">🏗️</div>
+      <div class="fc-title">Infrastructure Intelligence</div>
+      <div class="fc-desc">Tracks metro lines, highways, SEZs, and CLU changes from municipal portals. Government intent is the best lead indicator — we surface it first.</div>
+    </div>
+    <div class="feature-card reveal reveal-delay-3" style="--fc-gradient:linear-gradient(to right,#d97706,#ef4444)">
+      <div class="fc-icon" style="background:linear-gradient(135deg,#fef3c7,#fee2e2)">📈</div>
+      <div class="fc-title">60-Month Projections</div>
+      <div class="fc-desc">Linear trend extrapolation with discrete event boosts at infrastructure completion dates. See where a zone will be in 2, 3, or 5 years.</div>
+    </div>
+    <div class="feature-card reveal" style="--fc-gradient:linear-gradient(to right,#1d4ed8,#7c3aed)">
+      <div class="fc-icon" style="background:linear-gradient(135deg,#dbeafe,#ede9fe)">₹</div>
+      <div class="fc-title">Undervalued Zone Detection</div>
+      <div class="fc-desc">Identifies zones where rental yield delta diverges from the 6-month trailing average — a reliable signal of upcoming price appreciation.</div>
+    </div>
+    <div class="feature-card reveal reveal-delay-1" style="--fc-gradient:linear-gradient(to right,#06b6d4,#10b981)">
+      <div class="fc-icon" style="background:linear-gradient(135deg,#e0f2fe,#d1fae5)">🔔</div>
+      <div class="fc-title">Smart Alerts</div>
+      <div class="fc-desc">Get notified when a zone's GVS spikes or a high-impact declaration (metro, highway, CLU change) is detected — before it hits the news.</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <div class="section-label reveal">Process</div>
+  <h2 class="section-title reveal reveal-delay-1">How PropSight works</h2>
+  <p class="section-sub reveal reveal-delay-2">Four steps from raw data to investment insight.</p>
+  <div class="how-grid">
+    <div class="how-step reveal">
+      <div class="hs-circle">1</div>
+      <div class="hs-step-title">Data Harvesting</div>
+      <div class="hs-step-desc">Scrapes municipal portals for infrastructure tenders and CLU changes. Aggregates listing density and pricing from real estate portals.</div>
+    </div>
+    <div class="how-step reveal reveal-delay-1">
+      <div class="hs-circle">2</div>
+      <div class="hs-step-title">Signal Correlation</div>
+      <div class="hs-step-desc">Weights 7 lead and demand indicators using a configurable model to compute a Growth Velocity Score for each zone.</div>
+    </div>
+    <div class="how-step reveal reveal-delay-2">
+      <div class="hs-circle">3</div>
+      <div class="hs-step-title">Trend Analysis</div>
+      <div class="hs-step-desc">Computes pricing velocity and rental yield delta to flag Appreciating and Undervalued zones across micro-markets.</div>
+    </div>
+    <div class="how-step reveal reveal-delay-3">
+      <div class="hs-circle">4</div>
+      <div class="hs-step-title">Visual Projection</div>
+      <div class="hs-step-desc">Projects GVS trajectories onto an interactive state map with 24–60 month horizon modeling and confidence levels.</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAND -->
+<section class="stats-band">
+  <div class="stats-inner">
+    <div class="stat-item reveal"><div class="stat-num">9<span>+</span></div><div class="stat-label">Indian States Covered</div></div>
+    <div class="stat-item reveal reveal-delay-1"><div class="stat-num">28<span>+</span></div><div class="stat-label">Micro-Markets Tracked</div></div>
+    <div class="stat-item reveal reveal-delay-2"><div class="stat-num">32</div><div class="stat-label">Correctness Properties</div></div>
+    <div class="stat-item reveal reveal-delay-3"><div class="stat-num">60<span>mo</span></div><div class="stat-label">Max Projection Horizon</div></div>
+  </div>
+</section>
+
+<!-- CITIES -->
+<section class="cities-section" id="cities">
+  <div class="section-label reveal">Coverage</div>
+  <h2 class="section-title reveal reveal-delay-1">India's top growth cities</h2>
+  <p class="section-sub reveal reveal-delay-2">Covering the fastest-growing real estate markets across India.</p>
+  <div class="cities-grid">
+    <a href="/dashboard" class="city-card reveal"><div class="city-icon">🏙️</div><div class="city-name">Mumbai</div><div class="city-zones">8 zones</div><div class="city-gvs" style="color:#3b82f6">69 GVS</div></a>
+    <a href="/dashboard" class="city-card reveal reveal-delay-1"><div class="city-icon">🏛️</div><div class="city-name">Delhi NCR</div><div class="city-zones">4 zones</div><div class="city-gvs" style="color:#f59e0b">86 GVS</div></a>
+    <a href="/dashboard" class="city-card reveal reveal-delay-2"><div class="city-icon">🌿</div><div class="city-name">Bengaluru</div><div class="city-zones">4 zones</div><div class="city-gvs" style="color:#10b981">80 GVS</div></a>
+    <a href="/dashboard" class="city-card reveal reveal-delay-3"><div class="city-icon">💎</div><div class="city-name">Hyderabad</div><div class="city-zones">3 zones</div><div class="city-gvs" style="color:#06b6d4">73 GVS</div></a>
+    <a href="/dashboard" class="city-card reveal"><div class="city-icon">🏗️</div><div class="city-name">Pune</div><div class="city-zones">3 zones</div><div class="city-gvs" style="color:#3b82f6">70 GVS</div></a>
+    <a href="/dashboard" class="city-card reveal reveal-delay-1"><div class="city-icon">🏦</div><div class="city-name">Ahmedabad</div><div class="city-zones">2 zones</div><div class="city-gvs" style="color:#ef4444">84 GVS</div></a>
+
+    <!-- More Cities Card -->
+    <div class="city-card reveal reveal-delay-2" onclick="openCitiesModal()" style="cursor:pointer;border:2px dashed #c7d7f8;background:linear-gradient(135deg,#f0f7ff,#e8f0fe);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:130px">
+      <div style="width:44px;height:44px;background:linear-gradient(135deg,#1d4ed8,#3b82f6);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;box-shadow:0 4px 12px rgba(29,78,216,0.25)">➕</div>
+      <div style="font-size:0.9rem;font-weight:800;color:#1d4ed8">More Cities</div>
+      <div style="font-size:0.72rem;color:#64748b;text-align:center;line-height:1.4">Explore all cities<br>or request a new one</div>
+    </div>
+  </div>
+</section>
+
+<!-- MORE CITIES MODAL -->
+<div id="cities-modal" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:9999;align-items:center;justify-content:center;backdrop-filter:blur(6px)" onclick="if(event.target===this)closeCitiesModal()">
+  <div style="background:#fff;border-radius:24px;width:min(94vw,780px);max-height:88vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 80px rgba(29,78,216,.2);animation:modalIn .3s cubic-bezier(.4,0,.2,1)">
+    <div style="padding:20px 24px 16px;background:linear-gradient(135deg,#f0f7ff,#e8f0fe);border-bottom:1px solid #dbeafe;display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
+      <div style="font-size:1.05rem;font-weight:800;color:#0f172a">🏙️ All Covered Cities</div>
+      <button onclick="closeCitiesModal()" style="width:32px;height:32px;border-radius:8px;border:1px solid #dbeafe;background:#fff;cursor:pointer;font-size:1rem;color:#64748b;display:flex;align-items:center;justify-content:center">✕</button>
+    </div>
+    <div style="flex:1;overflow-y:auto;padding:20px 24px">
+      <!-- All cities grid -->
+      <div style="font-size:0.65rem;font-weight:800;color:#1d4ed8;text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px">Currently Tracked</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:28px">
+        <a href="/dashboard" style="text-decoration:none;background:#f8faff;border:1.5px solid #dbeafe;border-radius:12px;padding:14px 12px;text-align:center;transition:all .2s;display:block" onmouseover="this.style.borderColor='#1d4ed8';this.style.background='#eff6ff'" onmouseout="this.style.borderColor='#dbeafe';this.style.background='#f8faff'"><div style="font-size:1.6rem;margin-bottom:6px">🏙️</div><div style="font-size:0.82rem;font-weight:700;color:#0f172a">Mumbai</div><div style="font-size:0.68rem;color:#64748b">8 zones</div><div style="font-size:0.85rem;font-weight:800;color:#3b82f6;margin-top:4px">69 GVS</div></a>
+        <a href="/dashboard" style="text-decoration:none;background:#f8faff;border:1.5px solid #dbeafe;border-radius:12px;padding:14px 12px;text-align:center;transition:all .2s;display:block" onmouseover="this.style.borderColor='#1d4ed8';this.style.background='#eff6ff'" onmouseout="this.style.borderColor='#dbeafe';this.style.background='#f8faff'"><div style="font-size:1.6rem;margin-bottom:6px">🏛️</div><div style="font-size:0.82rem;font-weight:700;color:#0f172a">Delhi NCR</div><div style="font-size:0.68rem;color:#64748b">4 zones</div><div style="font-size:0.85rem;font-weight:800;color:#f59e0b;margin-top:4px">86 GVS</div></a>
+        <a href="/dashboard" style="text-decoration:none;background:#f8faff;border:1.5px solid #dbeafe;border-radius:12px;padding:14px 12px;text-align:center;transition:all .2s;display:block" onmouseover="this.style.borderColor='#1d4ed8';this.style.background='#eff6ff'" onmouseout="this.style.borderColor='#dbeafe';this.style.background='#f8faff'"><div style="font-size:1.6rem;margin-bottom:6px">🌿</div><div style="font-size:0.82rem;font-weight:700;color:#0f172a">Bengaluru</div><div style="font-size:0.68rem;color:#64748b">4 zones</div><div style="font-size:0.85rem;font-weight:800;color:#10b981;margin-top:4px">80 GVS</div></a>
+        <a href="/dashboard" style="text-decoration:none;background:#f8faff;border:1.5px solid #dbeafe;border-radius:12px;padding:14px 12px;text-align:center;transition:all .2s;display:block" onmouseover="this.style.borderColor='#1d4ed8';this.style.background='#eff6ff'" onmouseout="this.style.borderColor='#dbeafe';this.style.background='#f8faff'"><div style="font-size:1.6rem;margin-bottom:6px">💎</div><div style="font-size:0.82rem;font-weight:700;color:#0f172a">Hyderabad</div><div style="font-size:0.68rem;color:#64748b">3 zones</div><div style="font-size:0.85rem;font-weight:800;color:#06b6d4;margin-top:4px">73 GVS</div></a>
+        <a href="/dashboard" style="text-decoration:none;background:#f8faff;border:1.5px solid #dbeafe;border-radius:12px;padding:14px 12px;text-align:center;transition:all .2s;display:block" onmouseover="this.style.borderColor='#1d4ed8';this.style.background='#eff6ff'" onmouseout="this.style.borderColor='#dbeafe';this.style.background='#f8faff'"><div style="font-size:1.6rem;margin-bottom:6px">🏗️</div><div style="font-size:0.82rem;font-weight:700;color:#0f172a">Pune</div><div style="font-size:0.68rem;color:#64748b">3 zones</div><div style="font-size:0.85rem;font-weight:800;color:#3b82f6;margin-top:4px">70 GVS</div></a>
+        <a href="/dashboard" style="text-decoration:none;background:#f8faff;border:1.5px solid #dbeafe;border-radius:12px;padding:14px 12px;text-align:center;transition:all .2s;display:block" onmouseover="this.style.borderColor='#1d4ed8';this.style.background='#eff6ff'" onmouseout="this.style.borderColor='#dbeafe';this.style.background='#f8faff'"><div style="font-size:1.6rem;margin-bottom:6px">🏦</div><div style="font-size:0.82rem;font-weight:700;color:#0f172a">Ahmedabad</div><div style="font-size:0.68rem;color:#64748b">2 zones</div><div style="font-size:0.85rem;font-weight:800;color:#ef4444;margin-top:4px">84 GVS</div></a>
+        <a href="/dashboard" style="text-decoration:none;background:#f8faff;border:1.5px solid #dbeafe;border-radius:12px;padding:14px 12px;text-align:center;transition:all .2s;display:block" onmouseover="this.style.borderColor='#1d4ed8';this.style.background='#eff6ff'" onmouseout="this.style.borderColor='#dbeafe';this.style.background='#f8faff'"><div style="font-size:1.6rem;margin-bottom:6px">🌸</div><div style="font-size:0.82rem;font-weight:700;color:#0f172a">Jaipur</div><div style="font-size:0.68rem;color:#64748b">1 zone</div><div style="font-size:0.85rem;font-weight:800;color:#8b5cf6;margin-top:4px">63 GVS</div></a>
+        <a href="/dashboard" style="text-decoration:none;background:#f8faff;border:1.5px solid #dbeafe;border-radius:12px;padding:14px 12px;text-align:center;transition:all .2s;display:block" onmouseover="this.style.borderColor='#1d4ed8';this.style.background='#eff6ff'" onmouseout="this.style.borderColor='#dbeafe';this.style.background='#f8faff'"><div style="font-size:1.6rem;margin-bottom:6px">🌊</div><div style="font-size:0.82rem;font-weight:700;color:#0f172a">Kolkata</div><div style="font-size:0.68rem;color:#64748b">1 zone</div><div style="font-size:0.85rem;font-weight:800;color:#06b6d4;margin-top:4px">68 GVS</div></a>
+        <a href="/dashboard" style="text-decoration:none;background:#f8faff;border:1.5px solid #dbeafe;border-radius:12px;padding:14px 12px;text-align:center;transition:all .2s;display:block" onmouseover="this.style.borderColor='#1d4ed8';this.style.background='#eff6ff'" onmouseout="this.style.borderColor='#dbeafe';this.style.background='#f8faff'"><div style="font-size:1.6rem;margin-bottom:6px">🌴</div><div style="font-size:0.82rem;font-weight:700;color:#0f172a">Chennai</div><div style="font-size:0.68rem;color:#64748b">2 zones</div><div style="font-size:0.85rem;font-weight:800;color:#10b981;margin-top:4px">71 GVS</div></a>
+      </div>
+
+      <!-- Coming soon -->
+      <div style="font-size:0.65rem;font-weight:800;color:#64748b;text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px">Coming Soon</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px">
+        <span style="padding:6px 14px;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:20px;font-size:0.78rem;font-weight:600;color:#64748b">🏖️ Kochi</span>
+        <span style="padding:6px 14px;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:20px;font-size:0.78rem;font-weight:600;color:#64748b">🌁 Chandigarh</span>
+        <span style="padding:6px 14px;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:20px;font-size:0.78rem;font-weight:600;color:#64748b">🏔️ Dehradun</span>
+        <span style="padding:6px 14px;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:20px;font-size:0.78rem;font-weight:600;color:#64748b">🌾 Nagpur</span>
+        <span style="padding:6px 14px;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:20px;font-size:0.78rem;font-weight:600;color:#64748b">🏛️ Lucknow</span>
+        <span style="padding:6px 14px;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:20px;font-size:0.78rem;font-weight:600;color:#64748b">🌊 Visakhapatnam</span>
+        <span style="padding:6px 14px;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:20px;font-size:0.78rem;font-weight:600;color:#64748b">🏗️ Surat</span>
+        <span style="padding:6px 14px;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:20px;font-size:0.78rem;font-weight:600;color:#64748b">🌿 Coimbatore</span>
+      </div>
+
+      <!-- Request form -->
+      <div style="background:linear-gradient(135deg,#eff6ff,#e8f0fe);border:1.5px solid #dbeafe;border-radius:16px;padding:20px 22px">
+        <div style="font-size:0.9rem;font-weight:800;color:#0f172a;margin-bottom:4px">📬 Request a City</div>
+        <div style="font-size:0.78rem;color:#64748b;margin-bottom:14px">Tell us which city you'd like us to add next. We prioritize based on demand.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <input id="city-request-input" placeholder="e.g. Kochi, Indore, Bhopal…" style="flex:1;min-width:200px;padding:10px 14px;border:1.5px solid #dbeafe;border-radius:10px;font-size:0.85rem;font-family:inherit;outline:none;background:#fff" onfocus="this.style.borderColor='#1d4ed8'" onblur="this.style.borderColor='#dbeafe'"/>
+          <button onclick="submitCityRequest()" style="padding:10px 20px;background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;border:none;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;white-space:nowrap" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='none'">🚀 Request</button>
+        </div>
+        <div id="city-request-msg" style="display:none;margin-top:10px;font-size:0.78rem;font-weight:600;color:#059669">✅ Thanks! We've noted your request and will prioritize it.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-card reveal">
+    <div class="cta-title">Ready to find India's next hotspot?</div>
+    <div class="cta-sub">Open the live dashboard and explore state-wise growth scores, zone analytics, and 60-month projections — right now.</div>
+    <a href="/dashboard" class="cta-btn">🗺️ Open Dashboard →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">🏙️ PropSight India</div>
+  <div class="footer-links">
+    <a href="#features">Features</a>
+    <a href="#how">How it works</a>
+    <a href="/dashboard">Dashboard</a>
+  </div>
+  <div class="footer-copy">© 2026 PropSight India. Predictive Urban Growth Intelligence.</div>
+</footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Navbar scroll effect
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  if(window.scrollY > 20) {
+    nav.style.boxShadow = '0 4px 24px rgba(29,78,216,0.1)';
+  } else {
+    nav.style.boxShadow = 'none';
+  }
+});
+
+// Animate stat numbers
+function animateNum(el, target, suffix='') {
+  let current = 0;
+  const step = target / 40;
+  const timer = setInterval(() => {
+    current = Math.min(current + step, target);
+    el.innerHTML = Math.round(current) + (current >= target ? `<span>${suffix}</span>` : '');
+    if(current >= target) clearInterval(timer);
+  }, 30);
+}
+const statObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      const nums = e.target.querySelectorAll('.stat-num');
+      nums.forEach(n => {
+        const text = n.textContent;
+        const num = parseInt(text);
+        const suffix = text.replace(/[0-9]/g,'');
+        animateNum(n, num, suffix);
+      });
+      statObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+const statsBand = document.querySelector('.stats-band');
+if(statsBand) statObserver.observe(statsBand);
+
+// ── Cities modal ──────────────────────────────────────────────────────────────
+function openCitiesModal() {
+  const m = document.getElementById('cities-modal');
+  m.style.display = 'flex';
+  requestAnimationFrame(() => m.style.opacity = '1');
+}
+function closeCitiesModal() {
+  document.getElementById('cities-modal').style.display = 'none';
+}
+function submitCityRequest() {
+  const inp = document.getElementById('city-request-input');
+  const msg = document.getElementById('city-request-msg');
+  if (!inp.value.trim()) { inp.style.borderColor = '#ef4444'; return; }
+  inp.style.borderColor = '#059669';
+  inp.disabled = true;
+  msg.style.display = 'block';
+  setTimeout(() => { inp.value = ''; inp.disabled = false; inp.style.borderColor = '#dbeafe'; msg.style.display = 'none'; }, 4000);
+}
+
+// ── Page transition to dashboard ──────────────────────────────────────────────
+function navigateToDashboard(e) {
+  const href = e.currentTarget.getAttribute('href');
+  if (!href || !href.startsWith('/dashboard')) return;
+  e.preventDefault();
+  const overlay = document.getElementById('page-transition');
+  overlay.classList.add('slide-up');
+  // Navigate after animation completes
+  setTimeout(() => { window.location.href = href; }, 560);
+}
+
+// Attach to all dashboard links
+document.querySelectorAll('a[href="/dashboard"]').forEach(a => {
+  a.addEventListener('click', navigateToDashboard);
+});
+</script>
+</body>
+</html>

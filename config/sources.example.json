@@ -1,0 +1,38 @@
+{
+  "sources": {
+    "municipal": [
+      {
+        "id": "mcgm-portal",
+        "portalUrl": "https://mcgm.gov.in/tenders",
+        "schedule": "0 6 * * *",
+        "documentTypeFilters": ["infrastructure_tender", "clu_change"],
+        "enabled": true
+      },
+      {
+        "id": "pune-pmc-portal",
+        "portalUrl": "https://pmc.gov.in/en/tenders",
+        "schedule": "0 7 * * *",
+        "documentTypeFilters": ["public_works", "metro_line"],
+        "enabled": false
+      }
+    ],
+    "market": [
+      {
+        "id": "99acres-mumbai",
+        "sourceName": "99acres",
+        "endpoint": "https://api.99acres.com/v1/listings",
+        "authCredentialRef": "secret:99acres-api-key",
+        "schedule": "0 */4 * * *",
+        "enabled": true
+      },
+      {
+        "id": "magicbricks-pune",
+        "sourceName": "MagicBricks",
+        "endpoint": "https://api.magicbricks.com/v2/listings",
+        "authCredentialRef": "secret:magicbricks-api-key",
+        "schedule": "0 */6 * * *",
+        "enabled": true
+      }
+    ]
+  }
+}
